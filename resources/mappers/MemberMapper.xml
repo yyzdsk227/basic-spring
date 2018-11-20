@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <mapper namespace="com.spring.dao.MemberDAO">
+  
+  <select id="check" resultMap="memModel" parameterType="String">
+  	select
+  		 id, password, writer, role
+  	from
+  		member join roles using(id)
+  	where id = #{id}
+  </select>
+  
+  
+  <select id="s_check" resultType="String" parameterType="String">
+	select writer 
+	from member
+	where writer=any(select writer 
+			from tbl_board
+            where id= #{id});
+
+	<!--중복 데이터에선 서브쿼리 -->   
+  </select> 
+  
+  <resultMap type="com.spring.vo.MemberVO" id="memModel">
+  	<id property="id" column="id" javaType="String" />
+  	<result property="password" column="password" javaType="String" />
+  	<result property="writer" column="writer" javaType="String" />
+  	<collection property="roles" column="role" javaType="List" ofType="String">
+  		<result column="role" />
+  	</collection>
+  
+  
+  
+  
+  
+  </resultMap>
+  
+</mapper>

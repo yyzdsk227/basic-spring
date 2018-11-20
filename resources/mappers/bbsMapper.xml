@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <mapper namespace="com.spring.dao.BbsDAO">
+  
+  <insert id="insert">
+  	insert into tbl_board (subject, content, writer)
+  	values (#{subject}, #{content}, #{writer})
+  </insert>
+  
+  <select id="read" resultType="com.spring.vo.BbsVO">
+  	select
+  		 bid, subject, content, writer, regdate, hit
+  	from
+  		tbl_board
+  	where bid=#{bid}
+  </select>
+  
+  <update id="update">
+  	update tbl_board set subject=#{subject}, content=#{content}, writer=#{writer}
+  	where bid=#{bid}
+  </update>
+
+  <delete id="delete">
+  	delete from tbl_board where bid=#{bid}
+  </delete>  
+  
+  <select id="list"	resultType="com.spring.vo.BbsVO">
+  <![CDATA[
+ 	  select 
+  			bid, subject, content, writer, regdate, hit
+   	  from
+  			tbl_board
+  	 where bid > 0
+   	 order by bid desc, regdate desc		
+	]]>
+  </select>
+  
+  <select id="listPage" resultType="com.spring.vo.BbsVO">
+  <![CDATA[
+ 	  select
+  			bid, subject, content, writer, regdate, hit
+   	  from
+  			tbl_board
+  	 where bid > 0
+   	 order by bid desc, regdate desc	
+   	 limit #{page}, 10 	
+	]]>
+  </select>
+  
+ <!--  #{startPage}는 getStartPage()메소드를 호출하는 것과 같다.
+ limit 특유의 속성 -> 시작페이지  <-이거 안만듬 -->
+  <select id="listCriteria" resultType="com.spring.vo.BbsVO">
+   <![CDATA[
+ 	  select 
+  			bid, subject, content, writer, regdate, hit
+   	  from
+  			tbl_board
+  	 where bid > 0
+   	 order by bid desc, regdate desc	
+   	 limit #{startPage}, #{numPerPage} 	
+	]]>
+  </select>
+  
+  <select id="countData" resultType="int">
+   <![CDATA[
+ 	  select count(bid) from tbl_board
+ 	  where bid > 0	  	  
+	]]>
+  </select>
+
+
+  <sql id ="findSQL">
+  	<if test="findType != null">
+ 	  	<if test="findType == 'S'.toString()">
+ 	  		and subject like CONCAT('%',#{keyword},'%')
+ 	  	</if> 	  	
+ 	  	<if test="findType == 'C'.toString()">
+ 	  		and content like CONCAT('%',#{keyword},'%')
+ 	  	</if>
+ 	  	<if test="findType == 'W'.toString()">
+ 	  		and writer like CONCAT('%', #{keyword},'%')
+ 	  	</if>
+ 	  	<if test="findType == 'SC'.toString()">
+ 	  		and (subject like CONCAT('%', #{keyword},'%') 
+ 	  		or content like CONCAT('%', #{keyword},'%'))
+ 	  	</if>
+ 	  	<if test="findType == 'CW'.toString()">
+ 	  		and (content like CONCAT('%', #{keyword}, '%') 
+ 	  		or writer like CONCAT('%', #{keyword},'%'))
+  	  	</if>
+  	  	<if test="findType == 'SCW'.toString()">
+ 	  		and (subject like CONCAT('%', #{keyword}, '%') 
+ 	  		or content like CONCAT('%', #{keyword},'%'))
+ 	  		or writer like CONCAT('%', #{keyword},'%'))
+   	  	</if>
+  	  	
+ 	  </if>
+  </sql>
+
+  <!--  Mybatis에서 제공하는 <include>, <sql> -->
+  <select id="listFind" resultType="com.spring.vo.BbsVO">
+  	<![CDATA[  
+ 	  select bid, subject, content, writer, regdate, hit,
+ 	  (select count(replyContent) as rnt 
+		from reply
+
+   	 	where tbl_board.bid = reply.bid )
+   	 	as recnt  from  tbl_board
+  	  where bid > 0
+  	]]>  
+  	 	<include refid="findSQL"></include>
+   	 <![CDATA[  
+   	  order by bid desc
+ 	  limit #{startPage},#{numPerPage}   	  
+	]]>
+  </select>  
+  
+  <select id="findCountData" resultType="int">
+  	 <![CDATA[
+ 	  select count(bid) 
+ 	  from  tbl_board
+  	  where bid > 0  	
+	]]>
+		<include refid="findSQL"></include>
+	<!-- <![CDATA[  
+   	  order by bid desc
+ 	  limit #{startPage},#{numPerPage}   	  
+	]]> -->
+  </select>
+  
+  <update id="updateHit">
+  	update tbl_board
+  	set hit = hit +1
+  	where bid = #{bid}
+  </update>
+  
+  
+
+  
+  
+  
+  
+</mapper>

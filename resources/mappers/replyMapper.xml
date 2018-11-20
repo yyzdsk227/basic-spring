@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.spring.dao.ReplyDAO">
+  	<select id="relist" resultType="com.spring.vo.ReplyVO">
+  	
+  		select * from reply
+  		where bid = #{bid}
+  		order by rebid desc
+  
+  	</select>
+  
+  	<insert id="write">
+  		insert into reply (bid, replyContent, writer)
+  		values (#{bid}, #{replyContent}, #{writer})
+  
+  	</insert>
+  
+  	<update id="modify">
+  		update reply set replyContent = #{replyContent},
+  		updatedate = now()
+  		where rebid = #{rebid}
+  	</update>
+  
+  	<delete id = "reDelete">
+  		delete from reply where rebid = #{rebid}
+  	</delete>
+  	
+  	<select id = "reListPage" resultType="com.spring.vo.ReplyVO">
+  		select * from reply
+  		where bid = #{bid}
+  		order by rebid desc
+  		limit #{pCri.startPage}, #{pCri.numPerPage}  	
+  	
+  	</select>
+  
+  	<select id ="reCount" resultType="int">
+  		select count(bid) from reply where bid=#{bid}
+  	</select>
+  
+  </mapper>
+  
+  
+  
+  
+  
+  
+  
