@@ -1,4 +1,14 @@
 # basic-spring
 
-practice
-SHOW MC WITHOUT V
+BOARD PORTFOLIO
+
+BASED
+
+
+
+CRUD
+
+MVC
+
+SKIP VIEW(WITH BOOTSTARP)
+
