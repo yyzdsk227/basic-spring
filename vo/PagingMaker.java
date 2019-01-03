@@ -50,13 +50,14 @@ public class PagingMaker {
 	 
 	 int finalEndPage = (int)(Math.ceil(totalData/(double)pCria.getNumPerPage()));
 	
-		//보통 데이터 천개이상 주입 끝가지 안가봐서 정확하진 잘모르것슴...
+	//마지막 페이징 페이지부분...보통 데이터 천개이상 주입 끝가지 안가봐서 정확하진 잘모르것슴...
 	 if(endPage> finalEndPage){
 		 endPage = finalEndPage;
 	 }
 	 
 	 prev= startPage == 1? false : true;
 	 
+	 //wow
 	 next= endPage * pCria.getNumPerPage() > totalData ? false : true;
  	}//setPagingData()
 	
