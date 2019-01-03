@@ -6,13 +6,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 public class PagingMaker {
 
-	private int totalData;	//ÀüÃ¼ µ¥¾ÆÅ¸°¹¼ö
-	private int startPage;	//ÆäÀÌÁö ¸ñ·ÏÀÇ ½ÃÀÛ¹øÈ£
-	private int endPage;	//ÆäÀÌÁö ¸ñ·ÏÀÇ ³¡¹øÈ£
-	private boolean prev;	// ÀÌÀü ¹öÆ°À» ³ªÅ¸³»´Â ºÎ¿ï °ª
-	private boolean next;	// ´ÙÀ½ ¹öÆ°À» ³ªÅ¸³»´Â ºÎ¿ï °ª
+	private int totalData;	//ì „ì²´ ë°ì•„íƒ€ê°¯ìˆ˜
+	private int startPage;	//íŽ˜ì´ì§€ ëª©ë¡ì˜ ì‹œìž‘ë²ˆí˜¸
+	private int endPage;	//íŽ˜ì´ì§€ ëª©ë¡ì˜ ëë²ˆí˜¸
+	private boolean prev;	// ì´ì „ ë²„íŠ¼ì„ ë‚˜íƒ€ë‚´ëŠ” ë¶€ìš¸ ê°’
+	private boolean next;	// ë‹¤ìŒ ë²„íŠ¼ì„ ë‚˜íƒ€ë‚´ëŠ” ë¶€ìš¸ ê°’
 	
-	private int displayPageNum = 10;	//ÆäÀÌÁö¸ñ·Ï¿¡ ³ªÅ¸³¾ ÆäÀÌÁö ¹øÈ£ÀÇ ¼ö
+	private int displayPageNum = 10;	//íŽ˜ì´ì§€ëª©ë¡ì— ë‚˜íƒ€ë‚¼ íŽ˜ì´ì§€ ë²ˆí˜¸ì˜ ìˆ˜
 	
 	private PageCriteria pCria;
 	
@@ -50,6 +50,7 @@ public class PagingMaker {
 	 
 	 int finalEndPage = (int)(Math.ceil(totalData/(double)pCria.getNumPerPage()));
 	
+		//ë³´í†µ ë°ì´í„° ì²œê°œì´ìƒ ì£¼ìž… ëê°€ì§€ ì•ˆê°€ë´ì„œ ì •í™•í•˜ì§„ ìž˜ëª¨ë¥´ê²ƒìŠ´...
 	 if(endPage> finalEndPage){
 		 endPage = finalEndPage;
 	 }
