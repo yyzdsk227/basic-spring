@@ -26,21 +26,21 @@ public class MakeExcel {
              Map<String, Object> bean, String fileName, String templateFile, String string)
              throws ParsePropertyException, InvalidFormatException {
 
-		 // ¹Ş¾Æ¿À´Â ¸Å°³º¯¼ö bean´Â µğºñ¿¡¼­ »Ì¾Æ¿Â µ¥ÀÌÅÍ
-		 // fileName Àº ´Ù¿î·Îµå ¹ŞÀ»¶§ ÁöÁ¤µÇ´Â ÆÄÀÏ¸í
-		 // templateFile ´Â ÅÛÇÃ¸´ ¿¢¼¿ ÆÄÀÏ¸íÀÌ´Ù.
+		 // ë°›ì•„ì˜¤ëŠ” ë§¤ê°œë³€ìˆ˜ beanëŠ” ë””ë¹„ì—ì„œ ë½‘ì•„ì˜¨ ë°ì´í„°
+		 // fileName ì€ ë‹¤ìš´ë¡œë“œ ë°›ì„ë•Œ ì§€ì •ë˜ëŠ” íŒŒì¼ëª…
+		 // templateFile ëŠ” í…œí”Œë¦¿ ì—‘ì…€ íŒŒì¼ëª…ì´ë‹¤.
  
-		 // tempPath´Â ÅÛÇÃ¸´ ¿¢¼¿ÆÄÀÏÀÌ µé¾î°¡´Â °æ·Î¸¦ ³Ö¾î ÁØ´Ù.
+		 // tempPathëŠ” í…œí”Œë¦¿ ì—‘ì…€íŒŒì¼ì´ ë“¤ì–´ê°€ëŠ” ê²½ë¡œë¥¼ ë„£ì–´ ì¤€ë‹¤.
 		 String tempPath = request.getSession().getServletContext().getRealPath("/WEB-INF/");
  
 
-		 // º°µµ·Î ´Ù¿î·Îµå ¸¸µé±â ±ÍÂúÀ¸±î ÀÌ·±½ÄÀ¸·Î ¸¸µé¾î¼­ ¹Ù·Î ¿¢¼¿ »ı¼ºÈÄ ´Ù¿î ¹Ş°Ô 
+		 // ë³„ë„ë¡œ ë‹¤ìš´ë¡œë“œ ë§Œë“¤ê¸° ê·€ì°®ìœ¼ê¹Œ ì´ëŸ°ì‹ìœ¼ë¡œ ë§Œë“¤ì–´ì„œ ë°”ë¡œ ì—‘ì…€ ìƒì„±í›„ ë‹¤ìš´ ë°›ê²Œ 
 		 try {
 
 			 InputStream is = new BufferedInputStream(new FileInputStream(tempPath + "\\" + templateFile));
 			 XLSTransformer xls = new XLSTransformer();
      
-     
+     			 //ì´ ë¶€ë¶„ì´ ì œì¼ 
 			 Workbook workbook = xls.transformXLS(is, bean);
      
      
