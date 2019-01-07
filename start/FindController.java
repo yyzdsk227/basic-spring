@@ -134,7 +134,7 @@ public class FindController {
 		
 		}
 		if(null != error) {
-			mav.addObject("msg", "·Î±×ÀÎ ½ÇÆĞ");
+			mav.addObject("msg", "ë¡œê·¸ì¸ ì‹¤íŒ¨");
 			ModelAndView mavFail = new ModelAndView("/fbbs/index");
 			return mavFail;
 		}
@@ -145,7 +145,7 @@ public class FindController {
 	return mav;
 	}
 
-	//ulistµµ ¸¶Âù°¡Áö·Î
+	//ulistë„ ë§ˆì°¬ê°€ì§€ë¡œ
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public void list(@ModelAttribute("fCria") FindCriteria fCria, Model model) throws Exception{
 
@@ -157,8 +157,8 @@ public class FindController {
 		
 		mem = sesck.securityAuthen(mem);
 		
-		model.addAttribute("username", mem.getUsername()); //¾ÆÀÌµğ
- 		model.addAttribute("name", mem.getWriter()); 	//ÀÛ¼ºÀÚ(´Ğ³Û)
+		model.addAttribute("username", mem.getUsername()); //ì•„ì´ë””
+ 		model.addAttribute("name", mem.getWriter()); 	//ì‘ì„±ì(ë‹‰ë„´)
 		
 		
 		model.addAttribute("list", bsvc.listFind(fCria));
@@ -174,8 +174,6 @@ public class FindController {
 
 	}
 	
-	// 126~ 176
-	// °ü¸®ÀÚ¿ë url
 	
 	@RequestMapping(value="/readPage", method = RequestMethod.GET)
 	public void readPage(@RequestParam("bid") int bid, @ModelAttribute("fCria") FindCriteria fCria, Model model)
@@ -203,8 +201,6 @@ public class FindController {
 	
 	
 	
-	// 178~ 
-	// »ç¿ëÀÚ¿ë url pathVariable »ç¿ë ¹× ±âÅ¸ µîµî
 	
 	@RequestMapping(value="/ulist", method = RequestMethod.GET)
 	public void ulist(@ModelAttribute("fCria") FindCriteria fCria,
@@ -296,7 +292,7 @@ public class FindController {
 		reAttr.addAttribute("findType", fCria.getFindType());
 		reAttr.addAttribute("keyword", fCria.getKeyword());
 		
-		// urlÃ¢¿¡ ÁÖ¼Ò°ªÀÌ ³²¾ÆÀÖÁö ¾Ê°Ô ÇÏ±â À§ÇØ, model´ë½ÅÀ¸·Îµµ
+		// urlì°½ì— ì£¼ì†Œê°’ì´ ë‚¨ì•„ìˆì§€ ì•Šê²Œ í•˜ê¸° ìœ„í•´, modelëŒ€ì‹ ìœ¼ë¡œë„
 		reAttr.addFlashAttribute("result", "success");
 		
 		logger.info(reAttr.toString());
@@ -323,9 +319,9 @@ public class FindController {
 	
 	
 	
-	// ±Û¾²±â ÆäÀÌÁö ¿äÃ»
-	// ·Î±×ÀÎ ¾È‰ç½½½Ã¿£ º¸±âÀü¿ë 
-	// ÀÌ·¸°Ôµµ µÇÁö¸¸ À¢¸¸ÇÏ¸é modelandview ÃßÃµ
+	// ê¸€ì“°ê¸° í˜ì´ì§€ ìš”ì²­
+	// ë¡œê·¸ì¸ ì•ˆÂ‰ç‡ŸìŠ¬ì²¼ ë³´ê¸°ì „ìš© 
+	// ì´ë ‡ê²Œë„ ë˜ì§€ë§Œ ì›¬ë§Œí•˜ë©´ modelandview ì¶”ì²œ
 	@RequestMapping(value="/write", method = RequestMethod.GET)
 	public void writeGET(Model model) throws Exception{
 		
@@ -339,11 +335,11 @@ public class FindController {
 	
 		model.addAttribute("secCheck", msvc.secCheck(mem.getUsername()));
 			
-		logger.info("writeGET() È£Ãâ..........");
+		logger.info("writeGET() í˜¸ì¶œ..........");
 	}
 	
 	
-	// DB ±Û ÀÔ·ÂÃ³¸®
+	// DB ê¸€ ì…ë ¥ì²˜ë¦¬
 	@RequestMapping(value="/write", method = RequestMethod.POST)
 	public String writePOST(BbsVO bvo, RedirectAttributes reAttr) throws Exception{
 		
@@ -357,7 +353,7 @@ public class FindController {
 		   return "/fbbs/index";	
 		}
 		
-		logger.info("writePost() È£Ãâ...");
+		logger.info("writePost() í˜¸ì¶œ...");
 		
 		bsvc.write(bvo);
 		
@@ -367,24 +363,24 @@ public class FindController {
 		return "redirect:/fbbs/ulist";
 	}
 		
-	//¿¢¼¿·Î °Ô½Ã±Û º¸±â
+	//ì—‘ì…€ë¡œ ê²Œì‹œê¸€ ë³´ê¸°
 	@RequestMapping(value = "/downExcel")
     public void listExcel(HttpServletRequest request,
             HttpServletResponse response, ModelMap modelMap) throws Exception, Exception {
 
 		
-        // ±×³É Æò¼Ò¿¡ ¸¶ÀÌ¹ÙÆ¼½º¿¡¼­ µ¥ÀÌÅÍ »Ì´Â ¹æ¹ıÀ¸·Î µ¥ÀÌÅÍ¸¦ °¡Á®¿Â´Ù.
+        // ê·¸ëƒ¥ í‰ì†Œì— ë§ˆì´ë°”í‹°ìŠ¤ì—ì„œ ë°ì´í„° ë½‘ëŠ” ë°©ë²•ìœ¼ë¡œ ë°ì´í„°ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
         List<BbsVO> dataList = bsvc.list();
       
         
-        // ¹ŞÀº µ¥ÀÌÅÍ¸¦ ¸Ê¿¡ ´ã´Â´Ù.
+        // ë°›ì€ ë°ì´í„°ë¥¼ ë§µì— ë‹´ëŠ”ë‹¤.
         Map<String, Object> beans = new HashMap<String, Object>();
         beans.put("dataList", dataList);
         
-        // ¿¢¼¿ ´Ù¿î·Îµå ¸Ş¼Òµå°¡ ´ã°Ü ÀÖ´Â °´Ã¼
+        // ì—‘ì…€ ë‹¤ìš´ë¡œë“œ ë©”ì†Œë“œê°€ ë‹´ê²¨ ìˆëŠ” ê°ì²´
         MakeExcel me = new MakeExcel();
 
-        me.download(request, response, beans, "temp", "temp.xlsx", "¹«½ÃÇØµµµÊ");
+        me.download(request, response, beans, "temp", "temp.xlsx", "ë¬´ì‹œí•´ë„ë¨");
     }
 
 
