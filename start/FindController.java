@@ -182,7 +182,7 @@ public class FindController {
 		model.addAttribute(bsvc.read(bid));
 	}
 
-	
+	/*
 	@RequestMapping(value="/delPage", method = RequestMethod.POST)
 	public String delPage(@RequestParam("bid") int bid, FindCriteria fCria,
 			RedirectAttributes reAttr) throws Exception{
@@ -197,7 +197,7 @@ public class FindController {
 		reAttr.addFlashAttribute("result", "success");
 		
 		return "redirect:/fbbs/list";
-	}
+	}*/
 	
 	
 	
