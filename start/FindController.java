@@ -146,6 +146,7 @@ public class FindController {
 	}
 
 	//ulist도 마찬가지로
+	//로그인 안해도 내용
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public void list(@ModelAttribute("fCria") FindCriteria fCria, Model model) throws Exception{
 
