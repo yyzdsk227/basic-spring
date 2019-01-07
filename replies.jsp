@@ -32,7 +32,7 @@
 
  	
       
-			<input type="hidden" name="bid" id="rvoBid" size="35" value="${rvo.bid}"> <!-- name반드시 기술 -->
+		<input type="hidden" name="bid" id="rvoBid" size="35" value="${rvo.bid}"> <!-- ajax bid처리위해 name반드시 기술 -->
 		
     		<br>
     		<br>
